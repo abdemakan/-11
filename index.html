@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FESTIVAL ANGON BOCAH DEMAKAN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .text-justify {
+            text-align: justify;
+        }
+
+        .timeline-item p {
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .timeline-item h4 {
+            font-family: var(--font-heading);
+            color: var(--clr-pink);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .timeline {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .hero p.subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            color: var(--clr-cyan);
+            text-shadow: 2px 2px 0 var(--clr-dark);
+            font-family: var(--font-heading);
+        }
+
+        .see-more-btn {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .hero p.subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .timeline-item p {
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== CONFETTI PARTICLES ===== */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            font-size: 2rem;
+            animation: confettiFall linear infinite;
+            opacity: 0.85;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-60px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0.3;
+            }
+        }
+
+        /* ===== FUN EMOJI DIVIDER ===== */
+        .emoji-divider {
+            text-align: center;
+            padding: 1.2rem 0;
+            font-size: 2rem;
+            letter-spacing: 1.5rem;
+            animation: wiggleDivider 3s ease-in-out infinite;
+            user-select: none;
+        }
+
+        @keyframes wiggleDivider {
+
+            0%,
+            100% {
+                letter-spacing: 1.5rem;
+            }
+
+            50% {
+                letter-spacing: 2.2rem;
+            }
+        }
+
+        /* ===== SPARKLE STARS ===== */
+        .sparkle-wrap {
+            position: relative;
+            overflow: visible;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 1.6rem;
+            pointer-events: none;
+            animation: sparklePop 2s ease-in-out infinite;
+        }
+
+        @keyframes sparklePop {
+
+            0%,
+            100% {
+                transform: scale(0.7) rotate(-10deg);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.4) rotate(10deg);
+                opacity: 1;
+            }
+        }
+
+        /* ===== FUN RIBBON BANNER ===== */
+        .ribbon-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            overflow: hidden;
+            padding: 0.5rem 0;
+            background: repeating-linear-gradient(90deg, var(--clr-yellow) 0 60px, var(--clr-cyan) 60px 120px, var(--clr-pink) 120px 180px, var(--clr-purple) 180px 240px);
+            border-top: 4px solid var(--clr-dark);
+            border-bottom: 4px solid var(--clr-dark);
+        }
+
+        .ribbon-banner span {
+            font-size: 1.4rem;
+            font-family: var(--font-heading);
+            color: var(--clr-dark);
+            animation: ribbonScroll 18s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes ribbonScroll {
+            0% {
+                transform: translateX(100vw);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* ===== MINI GAMES SECTION ===== */
+        #games {
+            background: linear-gradient(135deg, var(--clr-dark) 0%, #1e0f3a 100%);
+        }
+
+        #games h2 {
+            color: var(--clr-yellow);
+            text-shadow: 3px 3px 0 var(--clr-pink);
+        }
+
+        #games>.container>p {
+            color: #ccc;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        /* -- Game Card -- */
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 4px solid var(--clr-cyan);
+            border-radius: 30px;
+            padding: 2rem;
+            box-shadow: 8px 8px 0 var(--clr-purple);
+            text-align: center;
+            color: white;
+        }
+
+        .game-card h3 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--clr-yellow);
+            text-shadow: 2px 2px 0 var(--clr-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .game-card .game-desc {
+            font-size: 1rem;
+            color: #bbb;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ---- GAME 1: Balloon Pop ---- */
+        #balloon-arena {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(180deg, #1a0a30 0%, #0d2b5e 100%);
+            border-radius: 20px;
+            border: 3px solid var(--clr-purple);
+            overflow: hidden;
+            cursor: crosshair;
+            margin-bottom: 1rem;
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 2.8rem;
+            cursor: pointer;
+            user-select: none;
+            animation: balloonRise linear forwards;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+            transition: transform 0.1s;
+        }
+
+        .balloon:hover {
+            transform: scale(1.15);
+        }
+
+        @keyframes balloonRise {
+            from {
+                bottom: -60px;
+            }
+
+            to {
+                bottom: 110%;
+            }
+        }
+
+        .balloon.pop {
+            animation: balloonPop 0.3s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes balloonPop {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.8);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(0.2);
+                opacity: 0;
+            }
+        }
+
+        #balloon-score-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 0.7rem 1.2rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+        }
+
+        #balloon-score-bar .score-val {
+            color: var(--clr-yellow);
+            font-size: 1.8rem;
+        }
+
+        #balloon-score-bar .timer-val {
+            color: var(--clr-cyan);
+            font-size: 1.8rem;
+        }
+
+        #balloon-result {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(18, 11, 35, 0.95);
+            border: 4px solid var(--clr-yellow);
+            border-radius: 20px;
+            padding: 2rem;
+            font-family: var(--font-heading);
+            color: var(--clr-yellow);
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 10;
+            min-width: 200px;
+        }
+
+        #balloon-result .final-score {
+            font-size: 3rem;
+            color: var(--clr-cyan);
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        #start-balloon {
+            background: var(--clr-yellow);
+            color: var(--clr-dark);
+            border: 4px solid var(--clr-dark);
+            border-radius: 30px;
+            padding: 0.8rem 2rem;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 5px 5px 0 var(--clr-dark);
+            transition: all 0.2s;
+        }
+
+        #start-balloon:hover {
+            background: var(--clr-cyan);
+            transform: translateY(-3px);
+        }
+
+        #start-balloon:active {
+            transform: translate(5px, 5px);
+            box-shadow: 0 0 0;
+        }
+
+        /* ---- GAME 2: Quiz Dolanan ---- */
+        #quiz-box {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            border: 3px solid var(--clr-pink);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        #quiz-question {
+            font-size: 3.5rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+
+        #quiz-hint {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        .quiz-opt {
+            background: rgba(255, 255, 255, 0.07);
+            border: 3px solid var(--clr-purple);
+            border-radius: 15px;
+            padding: 0.8rem;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .quiz-opt:hover {
+            background: var(--clr-purple);
+            transform: translateY(-3px);
+        }
+
+        .quiz-opt.correct {
+            background: #2ecc71;
+            border-color: #27ae60;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .quiz-opt.wrong {
+            background: #e74c3c;
+            border-color: #c0392b;
+            color: white;
+        }
+
+        #quiz-feedback {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            min-height: 1.5rem;
+            font-weight: 800;
+        }
+
+        #quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        #quiz-progress .q-score {
+            color: var(--clr-yellow);
+            font-size: 1.4rem;
+        }
+
+        #quiz-result {
+            display: none;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        #quiz-result .qr-emoji {
+            font-size: 4rem;
+        }
+
+        #quiz-result .qr-score {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--clr-yellow);
+        }
+
+        #quiz-result p {
+            color: #ccc;
+            margin-top: 0.5rem;
+        }
+
+        #restart-quiz {
+            background: var(--clr-pink);
+            color: white;
+            border: 4px solid var(--clr-dark);
+            border-radius: 30px;
+            padding: 0.8rem 2rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 5px 5px 0 var(--clr-dark);
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+
+        #restart-quiz:hover {
+            background: var(--clr-cyan);
+            color: var(--clr-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ===== FLOATING SIDE DECORATIONS ===== */
+        .side-deco {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 600px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #balloon-arena {
+                height: 240px;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .ribbon-banner span {
+                font-size: 1.1rem;
+            }
+
+            .emoji-divider {
+                font-size: 1.5rem;
+                letter-spacing: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- Splash / Loading Screen -->
+    <div id="loader">
+        <div class="loader-title">🎈 FESTIVAL<br>ANGON BOCAH</div>
+        <div class="loader-sub">#11 &middot; Tekun Teken Tekan</div>
+        <div class="loader-dots">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">Angon Bocah</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="#event">Event #11</a></li>
+            <li><a href="#history">Babak demi Babak</a></li>
+            <li><a href="#pasar">Pasar Wutah</a></li>
+            <li><a href="#gallery">Album</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#games">🎮 Mini Games</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero section">
+        <div class="wave-bg"></div>
+        <!-- Confetti particles -->
+        <div class="confetti-container" id="confetti-container"></div>
+        <div class="container relative">
+            <h1 class="bounce-in">FESTIVAL ANGON BOCAH</h1>
+            <p class="subtitle bounce-in" style="animation-delay: 0.3s;">Demakan Lama</p>
+            <a href="#about" class="btn primary-btn">Jelajahi Keseruan! 🚀</a>
+            <!-- Countdown Timer -->
+            <div class="countdown-wrap">
+                <div class="countdown-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Hari</span>
+                </div>
+                <div class="countdown-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Jam</span>
+                </div>
+                <div class="countdown-box"><span class="cd-num" id="cd-mins">00</span><span
+                        class="cd-label">Menit</span></div>
+                <div class="countdown-box"><span class="cd-num" id="cd-secs">00</span><span
+                        class="cd-label">Detik</span></div>
+            </div>
+            <p class="countdown-event-label">⏳ Menuju Festival Angon Bocah #11 &middot; 25-26 Juli 2026</p>
+        </div>
+        <!-- Sparkle decorations -->
+        <span class="sparkle" style="top:15%;left:5%;animation-delay:0s;">✨</span>
+        <span class="sparkle" style="top:20%;right:7%;animation-delay:0.5s;">🌟</span>
+        <span class="sparkle" style="top:60%;left:3%;animation-delay:1s;">⭐</span>
+        <span class="sparkle" style="top:70%;right:5%;animation-delay:1.5s;">💫</span>
+        <span class="sparkle" style="top:40%;left:12%;animation-delay:0.8s;">🎉</span>
+        <span class="sparkle" style="top:35%;right:12%;animation-delay:1.2s;">🎊</span>
+        <div class="custom-shape-divider-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+                    fill="#fffaf0"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Fun Emoji Ribbon Banner -->
+    <div class="ribbon-banner" aria-hidden="true">
+        <span>🎈 FESTIVAL ANGON BOCAH #11 &nbsp;&nbsp; 🎪 TEKUN TEKEN TEKAN &nbsp;&nbsp; 🎭 DEMAKAN LAMA &nbsp;&nbsp; 🌟
+            SANGGAR SENI NALIRASA &nbsp;&nbsp; 🎨 PASAR WUTAH &nbsp;&nbsp; 🏮 DOLANAN TRADISIONAL &nbsp;&nbsp; 🥁 SENI
+            BUDAYA &nbsp;&nbsp; 🎠 FESTIVAL ANGON BOCAH #11 &nbsp;&nbsp; 🎈 TEKUN TEKEN TEKAN &nbsp;&nbsp;</span>
+    </div>
+
+    <!-- Deskripsi Singkat Angon Bocah -->
+    <section id="about" class="section" style="position:relative;overflow:hidden;">
+        <!-- Side sparkle decorations -->
+        <span class="side-deco" style="top:10%;left:-10px;animation:sparklePop 2.5s ease-in-out infinite;">🎈</span>
+        <span class="side-deco" style="top:50%;right:-10px;animation:sparklePop 3s ease-in-out 1s infinite;">🌈</span>
+        <span class="side-deco" style="bottom:10%;left:20px;animation:sparklePop 2s ease-in-out 0.5s infinite;">⭐</span>
+        <div class="container text-center">
+            <h2>Festival Angon Bocah</h2>
+            <div class="card bg-cyan floating-slow text-justify" style="max-width: 1000px; color: var(--clr-dark);">
+                <p>Berangkat dari kesederhanaan dan kesadaran nilai-nilai kebersamaan, Festival Angon Bocah hadir
+                    menyapa pada medio 2014, bertepatan dengan suhu politik yang mencapai didihnya kala itu. Bermula
+                    dari ide sederhana yang menelanjangi kesempurnaan, tentang angan-ingin kami Pemuda Harapan Pemudi
+                    Demakan dalam payung Sanggar Seni Nalirasa, untuk mengenalkan kembali dolanan dan permainan
+                    tradisional yang dulu pernah kami geluti kepada anak-anak kecil di Kampung Demakan. Upaya untuk
+                    mengkampanyekan dolanan dan permainan tradisional kepada anak-anak ternyata cukup menantang bagi
+                    kami di era gagdet yang tampaknya urung lepas dari tangan-tangan kecil mereka. Hal yang tampak sulit
+                    ternyata waktu juga yang menemukan celahnya sendiri. Kita buka ruang-ruang bermain, workshop, arena
+                    edukasi dan sajian ragam panggung dan pertunjukkan untuk menarik minat anak-anak. Terlihat para
+                    "bocah" begitu antusias dengan hal-hal baru yang mereka temui dan maknai.</p>
+                <div class="more-text" style="display: none;">
+                    <p class="mt-4">Tidak hanya anak-anak, Festival Angon Bocah juga menjadi wadah bagi para muda serta
+                        orang tua. Ragam kolaborasi dalam ranah kreatif dari mural hingga parenting, lapak literasi
+                        sampai campur sari, dari band-bandan hingga karawitan tersaji dalam gelaran Festival Angon Bocah
+                        setiap tahunnya. Festival Angon Bocah berupaya menampung minat bakat warga, ragam pentas
+                        kesenian baik tradisional maupun modern tersaji sebagai wadah terhadap masyarakat majemuk
+                        emperan kota.</p>
+                    <p>Pada setiap helatannya Festival Angon Bocah yang diselenggarakan di Jl. Wiratama, Demakan,
+                        Tegalrejo, Yogyakarta tidak hanya menjadi tuntunan dan tontonan bagi masyarakat, namun juga
+                        kemauan kolektif untuk menggerakkan sendi ekonomi dari lingkup terkecil (Kampung), melalui
+                        gelaran lapak Pasar Wutah. Dengan harapan warga dapat berdagang dan semua warga dapat melarisi
+                        dagangan yang ada, warga bantu warga, semua senang semua bahagia.</p>
+                    <p>Festival Angon Bocah digelar sebagai pengingat Hari Anak Nasional 23 Juli. Dilaksanakan sebagai
+                        perayaan akhir pekan untuk letupan kecil penawar sederhana dan sementara atas kepenatan hidup
+                        yang semakin serba sulit dan menghimpit. Toh, hidup terus bergulir, kebahagiaan kecil musti
+                        diais dan diukir.</p>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn secondary-btn see-more-btn">Lihat Selengkapnya...</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: This Year Event -->
+    <section id="event" class="section shape-bg-1">
+        <div class="container split-layout">
+            <div class="content-text text-justify">
+                <h2>This Year Event: Angon Bocah #11</h2>
+                <h3
+                    style="color: var(--clr-pink); font-size: 2rem; margin-bottom: 1.5rem; text-shadow: 2px 2px 0 var(--clr-yellow); text-align: center;">
+                    "Tekun Teken Tekan"</h3>
+                <p>Mencoba menilik jauh kebelakang pada landasan pacu titik berangkat dan bermula Sebelas tahun yang
+                    lalu. Begitu jauh lintas jalannya, menantang terjal aral rintangnya. Semua tentang menekuni, melalui
+                    dan melampauinya hingga tiba (tekan) pada hari ini.</p>
+                <div class="more-text" style="display: none;">
+                    <p class="mt-4">Ini tentang olah rasa bersama, saling tertaut dan terikat, bersepakat dan saling
+                        mengikat. Beberapa kami menanam, sebagian kami mengairi, sebagian lagi merawat tumbuhnya. Ada
+                        yang datang ada yang berlalu, siklus roda hidup yang tidak dapat tertolak. Bukan untuk riuh
+                        tepuk tangan dan nada sanjungan, ini tentang peranan bahwa hidup mesti memberi makna dan arti,
+                        apa yang akan kita tinggali untuk generasi.</p>
+                    <p>Terima kasih sudah bertahan sejauh ini, terima kasih untuk lelah yang tidak terbayar upah, masih
+                        sudi menjaga api tetap menyala, menghidupi kampung tetap berdegup dan bernyawa. Jika kita merasa
+                        suntuk ingat-ingat lagi gelak tawa anak-anak kecil itu ketika bermain air dari semburan selang
+                        Damkar, mereka menari, mereka bernyanyi, mereka melukis, mereka bermain, mereka adalah kejujuran
+                        dengan segala keluguannya.</p>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn primary-btn see-more-btn"
+                        style="background-color: white; color: var(--clr-dark);">Lihat Selengkapnya...</button>
+                </div>
+            </div>
+            <div class="content-img floating">
+                <img src="ABPNG.png" alt="Logo Angon Bocah #11">
+            </div>
+        </div>
+    </section>
+
+    <!-- Emoji Divider -->
+    <div class="emoji-divider" aria-hidden="true">🎪 🎨 🎭 🎉 🥁 🌟 🎠</div>
+
+    <!-- Section 2: Babak demi Babak -->
+    <section id="history" class="section shape-bg-2">
+        <div class="container">
+            <h2>Babak demi Babak Angon Bocah</h2>
+            <div class="timeline">
+                <!-- Year 10 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2025 #10</h3>
+                        <h4>"Ruruh Rereh Ririh"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB10.png" alt="Logo 10"
+                                style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <p>Satu Dekade Festival Angon Bocah. Genap 10 tahun melalui bersama, merawat ruang bermain,
+                            belajar, dan bertumbuh bersama. Menjaga tradisi dan budaya tetap menyala pendarnya. Tontonan
+                            dan tuntunan yang saling beririsan, memantik upaya bersama menggerakkan sendi ekonomi dari
+                            lingkup terkecil bersama para pelaku UMKM Kampung pinggiran Kota.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Ruruh Rereh Ririh, menanamkan cara angon/among kepada bocah, menyapa lembut,
+                                sareh dengan intonasi lirih. 10 tahun Festival Angon Bocah gelaran dibuka oleh Wakil
+                                Wali Kota Yogyakarta ditandai dengan menabuh dua kenong kembar. Pagi cerah mengiringi
+                                Kirab Budaya & Gunungan dalam arak-arakan wujud syukur kepada Gusti pencipta semesta.
+                            </p>
+                            <p>Dibeberapa titik sepanjang Jl. Wiratama, berlangsung juga live Mural di tembok rumah
+                                warga kolaborasi street art Zent Prozent X Bird Peace X Homepippa. Malam puncak Satu
+                                Dekade ditutup dengan penampilan atraksi Barongsai Nagata yang menyisakan kelegaan rasa
+                                haru, bangga, bahagia dan rasa syukur yang membuncah.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-yellow); padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 9 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2024 #9</h3>
+                        <h4>"Gumregah Ngangkah Jangkah"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB9.jpg" alt="Logo 9" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Festival Angon Bocah merupakan salah satu kegiatan yang dapat dilakukan sebagai upaya
+                            pengenalan kembali pengetahuan budaya dan tradisi bagi anak-anak maupun masyarakat luas.
+                            Gumregah Ngangkah Jangkah menajamkan sebagai teks capslock tebal, bahwa ide dan mimpi tidak
+                            akan berarti tanpa adanya tindakan dan proses yang berulang.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Pada Festival Angon Bocah kali ini gelaran workshop mengisi arena edukasi
+                                untuk berproses dan belajar hal-hal baru. Anak-anak belajar melukis miniatur wayang
+                                bersama kawan-kawan Trag Studio, cukil kayu bersama kolektif Sanggar Kawruh dan
+                                menyaksikan atraksi burung dengan kawan-kawan komunitas Jogja Free Flight.</p>
+                            <p>Panggung pentas masih berkerumun, atraksi budaya Jathilan dan Gedrug Buto Satrio Mudo
+                                manawarkan koreo kolosal di sore hari menciptakan histeria meletup.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-cyan); padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 8 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2023 #8</h3>
+                        <h4>"Prasaja Walaka Rumangsa"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB8.jpg" alt="Logo 8" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Sifat sederhana jujur dan apa adanya serta bisa rumangsa adalah sifat-sifat ksatria yang
+                            langka. Mampu menerapkan sifat-sifat tersebut berarti kita sedang menapak dalam lajur
+                            keunggulan.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Tahun kedelapan Festival Angon Bocah, kami melihat para bocah yang dulu kami
+                                asuh kini telah menginjak remaja. Pelaksanaan diawali dengan prosesi Tumbuk Ageng. Kami
+                                menggandeng Does University menggelar workshop bagi anak-anak membuat karya video
+                                animasi secara berkelompok.</p>
+                            <p>Kami juga mengundang kawan-kawan Nandur Banyu Gunung Kidul dalam sharing session, tentang
+                                keresahan terhadap sumber daya air, tentang pohon yang mulai berganti dengan beton.
+                                Ditutup dengan penanaman pohon resan di Kampung Kami. Lestari.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-pink); color: white; padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 7 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2022 #7</h3>
+                        <h4>"Bang Bang Wus Rahino"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB7.png" alt="Logo 7" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Bang Bang Wus Rahino merupakan nukilan lirik dari tembang "Bang Bang Wetan", yang berarti
+                            terbitnya matahari. Setelah 2 tahun kehidupan dihantam pagebluk, "Bang Bang Wus Rahino"
+                            menjelma sebagai sirine yang membangunkan kembali urat nadi kehidupan.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Kerinduan berbaur dengan kawan-kawan dan melihat kembali lalu lalang sibuk
+                                Pasar Wutah tunai terbayar. Menghadirkan SAMS Chambers Orchestra diantara deretan
+                                penampil lainnya, mengudarakan not-not brilian lewat alat musik gesek yang sangat megah.
+                            </p>
+                            <p>Bersamaan kami kedatangan kawan-kawan street art lintas negara. Kampung Mural jilid II
+                                ini diinisiasi secara kolektif melibatkan seniman dari Spanyol, Ukraina, Rusia, Mexico,
+                                Iran, Inggris, UEA, dan Indonesia.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-yellow); padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 6 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2019 #6</h3>
+                        <h4>"Lathi Pakarti Nyawiji"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB6.jpg" alt="Logo 6" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Sudah semestinya segala ucapan dan tindakan manusia selaras melangkah menuju hal-hal baik dan
+                            berbudi pakarti luhur. Seorang tokoh yang kami tuakan (Simbah), kerap memberi pitutur
+                            piwulangan kepada para bocah untuk diterapkan kesehariannya.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Kami menyelenggarakan lomba-lomba anak-anak berhadiah trophi Wali Kota.
+                                Macam lomba seperti mewarnai dan menggambar, balapan egrang dan bakiak bathok, semua
+                                tanpa biaya.</p>
+                            <p>Pada malam hari, Young Wiyogo Zindycate menyapa para muda. Kolektif dengan konsep hip-hop
+                                bercita rasa kearifan lokal berpadu dengan beatbox dan bebunyian wingit Gamelan.
+                                Perkawinan budaya yang menciptakan eksekusi sempurna.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-pink); color: white; padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2018 #5</h3>
+                        <h4>"Tatag Teteg Tutug"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB5.jpg" alt="Logo 5" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Mencoba mendidik dan mengedukasi kepada Anak-anak (bocah) untuk bercita-cita sejak kecil,
+                            teguh dan bersungguh-sungguh, hingga tumbuh dewasa menjadi pribadi yang ulet dan pantang
+                            menyerah.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Menapak tahun Kelima, Angon Bocah terus berproses. Panggung pentas memanas
+                                hingga area moshpit. Sangkakala band rock kabupaten menyapa dengan deru heavy metal
+                                mengeksekusi panggung dengan letup bunga api.</p>
+                            <p>Guyon Maton ala Mbah Marwoto Kawer dan Mas Alit Jabang Bayi, Ketoprak Ongkek bersama para
+                                seniman dagelan senior mampu mengundang gelak tawa pengunjung, sementara para bocah
+                                bermain sebaya berbagi canda bahagia.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-cyan); padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2017 #4</h3>
+                        <h4>"Serumpun Bambu Seribu Bunyi"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB4.jpg" alt="Logo 4" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Bambu merupakan tanaman dengan pertumbuhan paling cepat dan sangat berperan dalam kehidupan
+                            manusia. Bambu kami gunakan sebagai sumber bunyi, ragam bentuk ragam suara.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Tema ini kami usung untuk memantik para bocah berkreasi merespon bambu,
+                                botol, panci, tambir ditabuh menjadi bebunyian berirama yang memerdekakan imajinasi.
+                                Bocah perlu 'ditabuh' untuk berani melontarkan ide dan gerak kreativitasnya.</p>
+                            <p>Digelar juga workshop bagi para muda menghadirkan Farid Stevy Asta berbagi materi tentang
+                                personal branding, tidak hanya soal produk namun juga identitas kampung yang harus
+                                dirawat.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-purple); color: white; padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2016 #3</h3>
+                        <h4>"Seni Pertunjukkan Jalan &<br>Kampung Mural"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB3.jpg" alt="Logo 3" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Selain panggung, jalanan adalah arena berkesenian. Hadirnya Reog Ponorogo memanaskan
+                            gelanggang. Terdapat pula live sablonase kolaborasi bersama Individu clothing untuk
+                            memorable artwork Angon Bocah.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Letak kampung pinggiran kota tidak ada yang ditawarkan selain bangunan
+                                hunian rumah. Kami menginisiasi Kampung Mural dengan melibatkan seniman dan warga
+                                masyarakat pemilik rumah untuk dimural serentak.</p>
+                            <p>Kolaborasi street art melibatkan Vivien Poly (Prancis), Zent Prozent, Ismu Ismoyo X
+                                Kukomikan, Yanal Desmon, Alex TMT, Bad Face Crowter, Adit Here Here, dan Media Legal.
+                            </p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-yellow); padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2015 #2</h3>
+                        <h4>"Nggambari Dalan"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB2.jpg" alt="Logo 2" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Kami menyediakan media aspal jalanan sebagai kanvas wahana kreativitas anak-anak menggambar
+                            menggunakan kapur warna. Tanpa tema tertentu, bukan perlombaan. Keberanian dan kemauan
+                            terlihat dari wajah penuh keyakinan anak-anak.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Panggung kotak menghadirkan Nalitari, kelompok tari penyandang disabilitas.
+                                Segala keterbatasan nyatanya menemukan kelebihan dan keindahannya. Sebuah pementasan
+                                luar biasa.</p>
+                            <p>Di sisi lain sekumpulan Bapak-bapak menatap gantangan burung klangenannya, ngobrol
+                                membicarakan hal remeh merayakan jumpa menuju hakekat srawung sebenarnya.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-pink); color: white; padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+                <!-- Year 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Angon Bocah 2014 #1</h3>
+                        <h4>"Dolanan"</h4>
+                        <div class="placeholder-logo"
+                            style="padding: 0; overflow: hidden; border-style: solid; background-color: white;"><img
+                                src="Logos/AB1.png" alt="Logo 1" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <p>Mengusung tema "Dolanan" Festival Angon Bocah digelar untuk kali pertama. Diawali dengan
+                            kirab budaya bregada dan gunungan, anak-anak berbusana adat membawa dolanan othok-othok dari
+                            kaleng bekas dan bambu.</p>
+                        <div class="more-text" style="display: none;">
+                            <p class="mt-4">Tanpa aturan dan tatanan, anak-anak bebas mengekspresikan imajinasi.
+                                Keceriaan terpancar menyisakan gelak tawa. Ada yang menari di panggung, bermain egrang,
+                                bakiak adu balap, tali yeye karet, dakon, hingga panahan.</p>
+                            <p>Tidak hanya anak-anak, bapak-bapak turut bermain kelereng sejenak mengunjungi masa kecil
+                                mereka. Di tepian jalan para pedagang menyajikan jajanan dinikmati dalam iringan
+                                gamelan.</p>
+                        </div>
+                        <button class="btn primary-btn see-more-btn"
+                            style="background-color: var(--clr-cyan); padding: 0.5rem 1rem;">Lihat...</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Emoji Divider -->
+    <div class="emoji-divider" aria-hidden="true">🏮 🎯 🪁 🎲 🪄 🎀 🎶</div>
+
+    <!-- Section 3: Pasar Wutah -->
+    <section id="pasar" class="section">
+        <div class="container text-center">
+            <h2>Pasar Wutah</h2>
+            <div class="card card-pink floating-slow text-justify">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <img src="PW11.png" alt="Logo Pasar Wutah"
+                        style="max-width: 250px; border-radius: 20px; box-shadow: 5px 5px 0 var(--clr-dark);"
+                        class="bounce-in">
+                </div>
+                <p>Pasar Wutah adalah sebuah ruang bersama dan pasar kreatif yang diinisiasi oleh Sanggar Nali Rasa
+                    sejak tahun 2014 untuk menggerakkan potensi lokal masyarakat sekitar. Kegiatan tahunan ini berfungsi
+                    sebagai wadah bagi pelaku UMKM setempat untuk menjajakan hasil karya, keterampilan, dan usaha
+                    mandiri mereka secara langsung kepada komunitas. Dengan konsep yang sederhana namun sarat akan nilai
+                    budaya, pasar ini menghidupkan kembali suasana pasar tradisional masa lalu melalui penggunaan
+                    pakaian adat Jawa dan komunikasi dalam Bahasa Jawa krama alus oleh para pedagangnya.</p>
+                <div class="more-text" style="display: none;">
+                    <p class="mt-4">Lebih dari sekadar tempat transaksi ekonomi, Pasar Wutah menjadi jembatan lintas
+                        generasi yang memadukan warisan tradisional dengan dinamika zaman, seperti menghadirkan jajanan
+                        kekinian di samping kuliner klasik. Di dalamnya, pengunjung tidak hanya dapat menemukan
+                        kerajinan tangan, pakaian, dan mainan tradisional, tetapi juga menikmati berbagai kegiatan seni
+                        budaya serta edukasi yang berfokus pada anak-anak dan keluarga. Hal ini menjadikan Pasar Wutah
+                        sebagai ruang pertemuan yang unik antara aktivitas ekonomi, pelestarian tradisi, dan pendidikan
+                        masyarakat.</p>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn primary-btn see-more-btn"
+                        style="background-color: white; color: var(--clr-dark);">Lihat Selengkapnya...</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Album Dokumentasi -->
+    <section id="gallery" class="section shape-bg-3">
+        <div class="container">
+            <h2>Album Dokumentasi Angon Bocah & Pasar Wutah</h2>
+            <!-- Empty grid to be populated by JS -->
+            <div id="dynamic-gallery" class="gallery-grid"></div>
+        </div>
+    </section>
+
+    <!-- Section 5: Portfolio Angon Bocah -->
+    <section id="portfolio" class="section">
+        <div class="container text-center">
+            <h2>Portfolio Angon Bocah</h2>
+            <p class="mb-4">Didukung oleh instansi dan mitra hebat yang berkolaborasi menyukseskan Angon Bocah</p>
+
+            <h3
+                style="color: var(--clr-cyan); text-shadow: 2px 2px 0 var(--clr-dark); font-size: 2rem; margin-top: 3rem;">
+                Sponsor</h3>
+            <div class="portfolio-grid" style="margin-top: 1.5rem;">
+                <div class="sponsor-logo" style="padding: 10px;"><img
+                        src="Portfolio/Sponsor/HontizxOKlzXRY3IuUlY6wGXZUqtYW5VRMkrgTxt.png"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain;"></div>
+                <div class="sponsor-logo" style="padding: 10px;"><img src="Portfolio/Sponsor/Logo-Kota-Yogyakarta.png"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain;"></div>
+                <div class="sponsor-logo" style="padding: 10px;"><img
+                        src="Portfolio/Sponsor/image-removebg-preview (9).png"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain;"></div>
+            </div>
+
+            <h3
+                style="color: var(--clr-pink); text-shadow: 2px 2px 0 var(--clr-dark); font-size: 2rem; margin-top: 4rem;">
+                Media Partner</h3>
+            <div class="portfolio-grid" style="margin-top: 1.5rem;">
+                <div class="sponsor-logo" style="padding: 10px; border-radius: 20px;"><img
+                        src="Portfolio/Media Partner/RRI_Logo_2023.svg.png"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain;"></div>
+                <div class="sponsor-logo" style="padding: 10px; border-radius: 20px;"><img
+                        src="Portfolio/Media Partner/image-removebg-preview (10).png"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emoji Divider -->
+    <div class="emoji-divider" aria-hidden="true">🎊 🌸 🎈 💫 🌟 🎁 🎗️</div>
+
+    <!-- ===== MINI GAMES SECTION ===== -->
+    <section id="games" class="section" style="position:relative;overflow:hidden;">
+        <!-- Background sparkle decorations -->
+        <span class="sparkle" style="top:5%;left:3%;animation-delay:0s;font-size:2rem;">🎮</span>
+        <span class="sparkle" style="top:8%;right:4%;animation-delay:1s;font-size:2rem;">🕹️</span>
+        <span class="sparkle" style="bottom:10%;left:5%;animation-delay:0.5s;font-size:1.5rem;">⭐</span>
+        <span class="sparkle" style="bottom:15%;right:3%;animation-delay:1.5s;font-size:1.5rem;">✨</span>
+        <div class="container">
+            <h2 style="text-align:center;">🎮 Sudut Bermain 🕹️</h2>
+            <p style="text-align:center;color:#bbb;">Sambil nunggu festival, yuk main dulu! Dua game seru khusus buat
+                kamu 🎉</p>
+
+            <div class="games-grid">
+
+                <!-- GAME 1: Tangkap Balon -->
+                <div class="game-card" id="game-balloon-card">
+                    <h3>🎈 Tangkap Balon!</h3>
+                    <p class="game-desc">Klik balon yang terbang sebelum melewati batas! Setiap balon = 1 poin. Kamu
+                        punya 30 detik — siap?</p>
+                    <div id="balloon-score-bar">
+                        <span>🏆 Poin: <span class="score-val" id="balloon-score">0</span></span>
+                        <span>⏱️ Waktu: <span class="timer-val" id="balloon-timer">30</span>s</span>
+                    </div>
+                    <div id="balloon-arena">
+                        <div id="balloon-result">
+                            <span>Waktu Habis! 🎊</span>
+                            <span class="final-score" id="balloon-final">0</span>
+                            <span style="font-size:1rem;color:#ccc;">Poin terkumpul!</span>
+                        </div>
+                    </div>
+                    <button id="start-balloon">▶ Mulai Bermain!</button>
+                </div>
+
+                <!-- GAME 2: Tebak Dolanan -->
+                <div class="game-card" id="game-quiz-card">
+                    <h3>🪁 Tebak Dolanan!</h3>
+                    <p class="game-desc">Tebak nama permainan tradisional dari emoji petunjuk! Ada 7 soal — seberapa
+                        jago kamu?</p>
+                    <div id="quiz-progress">
+                        <span>Soal: <span id="quiz-q-num">1</span>/7</span>
+                        <span class="q-score">🏆 <span id="quiz-score">0</span></span>
+                    </div>
+                    <div id="quiz-box">
+                        <div id="quiz-question">🤔</div>
+                        <div id="quiz-hint">Memuat soal...</div>
+                        <div class="quiz-options" id="quiz-options"></div>
+                        <div id="quiz-feedback"></div>
+                    </div>
+                    <div id="quiz-result">
+                        <div class="qr-emoji" id="quiz-result-emoji">🏆</div>
+                        <div class="qr-score">Skor: <span id="quiz-final-score">0</span>/7</div>
+                        <p id="quiz-result-msg">Mantap!</p>
+                        <button id="restart-quiz">🔄 Main Lagi!</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Emoji Divider -->
+    <div class="emoji-divider" aria-hidden="true">🌙 🌈 🦋 🌻 🎆 🎇 🌠</div>
+
+    <!-- Footer: Comment Section & Contact -->
+    <footer class="footer">
+        <div class="custom-shape-divider-top">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    fill="#fffaf0"></path>
+            </svg>
+        </div>
+        <div class="container mt-footer">
+            <div class="footer-layout">
+                <div class="contact-info">
+                    <h3>Hubungi Kami 📞</h3>
+                    <p><strong>Instagram:</strong> @angonbocahdemakan</p>
+                    <p><strong>Facebook:</strong> Festival Angon Bocah Demakan</p>
+                    <p><strong>Email:</strong> abdemakan.business@gmail.com</p>
+                    <p><strong>WhatsApp:</strong> DotuSakti (081326053605)</p>
+                </div>
+                <div class="comment-section">
+                    <h3>Tinggalkan Pesan 💬</h3>
+                    <form id="comment-form">
+                        <input type="text" placeholder="Nama Kamu" required>
+                        <textarea placeholder="Pesan seru kamu di sini..." rows="4" required></textarea>
+                        <button type="submit" class="btn primary-btn">Kirim Pesan!</button>
+                    </form>
+                    <div id="comments-list" class="mt-4">
+                        <!-- Comments inserted by JS -->
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Festival Angon Bocah Demakan. Dibuat dengan ❤️ dan 🎈.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal for Images -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <!-- Text Modal for Descriptions -->
+    <div id="text-modal" class="lightbox" style="backdrop-filter: blur(8px);">
+        <div class="lightbox-content bg-yellow"
+            style="padding: 3rem; max-width: 750px; max-height: 85vh; overflow-y: auto; text-align: justify; color: var(--clr-dark); position: relative;">
+            <span class="text-modal-close lightbox-close"
+                style="top: 15px; right: 25px; color: var(--clr-dark);">&times;</span>
+            <div id="text-modal-body" style="font-size: 1.15rem; line-height: 1.8;"></div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Kembali ke atas">🚀</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
