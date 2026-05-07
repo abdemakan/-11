@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dynamic Random Gallery Logic
     const galleryContainer = document.getElementById('dynamic-gallery');
     if (galleryContainer) {
-        // List of 70 images from the Album folder
+        // List of all 89 images from the Album folder
         const allImages = [
             "IMG_0102.JPG", "IMG_0103.JPG", "IMG_0104.JPG", "IMG_0105.JPG", "IMG_0106.JPG", "IMG_0107.JPG", "IMG_0108.JPG", "IMG_0109.JPG", "IMG_0111.JPG", "IMG_0112.JPG",
             "IMG_0113.JPG", "IMG_0114.JPG", "IMG_0115.JPG", "IMG_0116.JPG", "IMG_0117.JPG", "IMG_0118.JPG", "IMG_0119.JPG", "IMG_0120.JPG", "IMG_0121.JPG", "IMG_0122.JPG",
@@ -79,12 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
             "IMG_0133.JPG", "IMG_0134.JPG", "IMG_0135.JPG", "IMG_0136.JPG", "IMG_0137.JPG", "IMG_0138.JPG", "IMG_0139.JPG", "IMG_0140.JPG", "IMG_0149.JPG", "IMG_0201.JPG",
             "IMG_0202.JPG", "IMG_0203.JPG", "IMG_0204.JPG", "IMG_0205.JPG", "IMG_0206.JPG", "IMG_0207.JPG", "IMG_0208.JPG", "IMG_0209.JPG", "IMG_0210.JPG", "IMG_0211.JPG",
             "IMG_0877.JPG", "IMG_0878.JPG", "IMG_0879.JPG", "IMG_0880.JPG", "IMG_0881.JPG", "IMG_0882.JPG", "IMG_0883.JPG", "IMG_0958.JPG", "IMG_1124.JPG", "IMG_1125.JPG",
-            "IMG_1126.JPG", "IMG_1127.JPG", "IMG_1128.JPG", "IMG_1252.JPG", "IMG_1588.JPG", "IMG_1725.JPG", "IMG_1819.JPG", "IMG_1840.JPG", "IMG_1843.JPG", "IMG_1857.JPG"
+            "IMG_1126.JPG", "IMG_1127.JPG", "IMG_1128.JPG", "IMG_1252.JPG", "IMG_1588.JPG", "IMG_1596.JPG", "IMG_1605.JPG", "IMG_1686.JPG", "IMG_1690.JPG", "IMG_1717.JPG",
+            "IMG_1722.JPG", "IMG_1725.JPG", "IMG_1727.JPG", "IMG_1765.JPG", "IMG_1773.JPG", "IMG_1819.JPG", "IMG_1840.JPG", "IMG_1842.JPG", "IMG_1843.JPG", "IMG_1849.JPG",
+            "IMG_1857.JPG", "IMG_1858.JPG", "IMG_1917.JPG", "IMG_1927.JPG", "IMG_1957.JPG", "IMG_1962.JPG", "IMG_1964.JPG", "IMG_2171.JPG", "IMG_2247.JPG"
         ];
 
-        // Shuffle array and pick 8 random images
+        // Shuffle array and pick 12 random images for a richer gallery
         const shuffled = allImages.sort(() => 0.5 - Math.random());
-        const selectedImages = shuffled.slice(0, 8);
+        const selectedImages = shuffled.slice(0, 12);
 
         // Generate HTML for the selected images
         selectedImages.forEach((imgSrc, index) => {
@@ -138,48 +140,193 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle Comment Submission
+    // =============================================
+    // COMMENT & REPLY SYSTEM
+    // =============================================
     const commentForm = document.getElementById('comment-form');
     const commentsList = document.getElementById('comments-list');
+    const COLORS = ['var(--clr-cyan)', 'var(--clr-yellow)', 'var(--clr-pink)', 'var(--clr-purple)'];
+    const STORAGE_KEY = 'angonbocah_comments_v2';
+
+    // Default seed comments
+    const defaultComments = [
+        { id: 'c1', name: 'Siti Rahma', message: 'Wah acaranya seru banget! Anak-anak pasti suka! Nggak sabar nunggu hari H nya.', color: 'var(--clr-cyan)', time: Date.now() - 86400000, replies: [] },
+        { id: 'c2', name: 'Budi Santoso', message: 'Tahun lalu saya ke Pasar Wutah, jajanannya enak-enak dan harganya terjangkau. Recommended buat keluarga!', color: 'var(--clr-pink)', time: Date.now() - 43200000, replies: [] }
+    ];
+
+    function loadComments() {
+        try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            return stored ? JSON.parse(stored) : defaultComments;
+        } catch(e) { return defaultComments; }
+    }
+
+    function saveComments(comments) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(comments)); } catch(e) {}
+    }
+
+    function formatTime(ts) {
+        const d = new Date(ts);
+        return d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' }) + ' ' +
+               d.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+    }
+
+    function createReplyHTML(reply) {
+        return `
+        <div class="reply-card" style="border-left-color:${reply.color}">
+            <div class="reply-header">
+                <span class="reply-avatar" style="background:${reply.color}">${reply.name.charAt(0).toUpperCase()}</span>
+                <strong>${reply.name}</strong>
+                <span class="comment-time">${formatTime(reply.time)}</span>
+            </div>
+            <p>${reply.message}</p>
+        </div>`;
+    }
+
+    function createCommentEl(c, allComments) {
+        const commentEl = document.createElement('div');
+        commentEl.className = 'comment-card bounce-in';
+        commentEl.style.borderColor = c.color;
+        commentEl.style.boxShadow = `6px 6px 0 ${c.color}`;
+        commentEl.dataset.id = c.id;
+
+        const repliesHTML = (c.replies || []).map(r => createReplyHTML(r)).join('');
+
+        commentEl.innerHTML = `
+            <div class="comment-header">
+                <span class="comment-avatar" style="background:${c.color}">${c.name.charAt(0).toUpperCase()}</span>
+                <div>
+                    <h4 style="margin:0;">${c.name}</h4>
+                    <span class="comment-time">${formatTime(c.time)}</span>
+                </div>
+            </div>
+            <p class="comment-body">${c.message}</p>
+            <div class="comment-actions">
+                <button class="reply-btn" data-id="${c.id}">💬 Balas</button>
+            </div>
+            <div class="reply-form-wrap" id="reply-form-${c.id}" style="display:none;">
+                <div class="reply-input-row">
+                    <input type="text" class="reply-name-input" placeholder="Nama kamu..." maxlength="40" required>
+                    <textarea class="reply-msg-input" placeholder="Tulis balasan..." rows="2" required></textarea>
+                    <div class="reply-btns">
+                        <button class="btn-send-reply" data-id="${c.id}">Kirim ✈️</button>
+                        <button class="btn-cancel-reply" data-id="${c.id}">Batal</button>
+                    </div>
+                </div>
+            </div>
+            <div class="replies-list">${repliesHTML}</div>
+        `;
+        return commentEl;
+    }
+
+    function renderComments(comments) {
+        if (!commentsList) return;
+        commentsList.innerHTML = '';
+        comments.forEach(c => {
+            commentsList.appendChild(createCommentEl(c, comments));
+        });
+        bindCommentEvents(comments);
+    }
+
+    function bindCommentEvents(comments) {
+        // Reply toggle
+        document.querySelectorAll('.reply-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const form = document.getElementById(`reply-form-${id}`);
+                if (form) {
+                    const isOpen = form.style.display !== 'none';
+                    form.style.display = isOpen ? 'none' : 'block';
+                    btn.textContent = isOpen ? '💬 Balas' : '✕ Tutup';
+                    if (!isOpen) form.querySelector('.reply-name-input').focus();
+                }
+            });
+        });
+
+        // Cancel reply
+        document.querySelectorAll('.btn-cancel-reply').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const form = document.getElementById(`reply-form-${id}`);
+                if (form) form.style.display = 'none';
+                const replyBtn = document.querySelector(`.reply-btn[data-id="${id}"]`);
+                if (replyBtn) replyBtn.textContent = '💬 Balas';
+            });
+        });
+
+        // Send reply
+        document.querySelectorAll('.btn-send-reply').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const form = document.getElementById(`reply-form-${id}`);
+                const nameEl = form.querySelector('.reply-name-input');
+                const msgEl = form.querySelector('.reply-msg-input');
+                const name = nameEl.value.trim();
+                const msg = msgEl.value.trim();
+                if (!name || !msg) { alert('Isi nama dan balasan dulu ya! 😊'); return; }
+
+                const reply = {
+                    id: 'r' + Date.now(),
+                    name,
+                    message: msg,
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    time: Date.now()
+                };
+
+                const parent = comments.find(c => c.id === id);
+                if (parent) {
+                    parent.replies = parent.replies || [];
+                    parent.replies.push(reply);
+                    saveComments(comments);
+
+                    const repliesList = document.querySelector(`.comment-card[data-id="${id}"] .replies-list`);
+                    if (repliesList) {
+                        const replyEl = document.createElement('div');
+                        replyEl.innerHTML = createReplyHTML(reply);
+                        repliesList.appendChild(replyEl.firstElementChild);
+                    }
+
+                    nameEl.value = '';
+                    msgEl.value = '';
+                    form.style.display = 'none';
+                    const replyBtn = document.querySelector(`.reply-btn[data-id="${id}"]`);
+                    if (replyBtn) replyBtn.textContent = '💬 Balas';
+                }
+            });
+        });
+    }
 
     if (commentForm && commentsList) {
+        let comments = loadComments();
+        renderComments(comments);
+
         commentForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const nameInput = commentForm.querySelector('input');
             const messageInput = commentForm.querySelector('textarea');
-            const name = nameInput.value;
-            const message = messageInput.value;
-            
-            if(name && message) {
-                const commentEl = document.createElement('div');
-                commentEl.className = 'comment-card bounce-in';
-                const colors = ['var(--clr-cyan)', 'var(--clr-yellow)', 'var(--clr-pink)', 'var(--clr-purple)'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                commentEl.style.borderColor = randomColor;
-                commentEl.style.boxShadow = `6px 6px 0 ${randomColor}`;
-                
-                commentEl.innerHTML = `
-                    <h4>${name}</h4>
-                    <p>${message}</p>
-                `;
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (name && message) {
+                const newComment = {
+                    id: 'c' + Date.now(),
+                    name,
+                    message,
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    time: Date.now(),
+                    replies: []
+                };
+
+                comments.unshift(newComment);
+                saveComments(comments);
+
+                const commentEl = createCommentEl(newComment, comments);
                 commentsList.prepend(commentEl);
+                bindCommentEvents(comments);
+
                 nameInput.value = '';
                 messageInput.value = '';
             }
-        });
-
-        const initialComments = [
-            { name: "Siti Rahma", message: "Wah acaranya seru banget! Anak-anak pasti suka! Nggak sabar nunggu hari H nya.", color: "var(--clr-cyan)" },
-            { name: "Budi Santoso", message: "Tahun lalu saya ke Pasar Wutah, jajanannya enak-enak dan harganya terjangkau. Recommended buat keluarga!", color: "var(--clr-pink)" }
-        ];
-
-        initialComments.forEach(c => {
-            const commentEl = document.createElement('div');
-            commentEl.className = 'comment-card';
-            commentEl.style.borderColor = c.color;
-            commentEl.style.boxShadow = `6px 6px 0 ${c.color}`;
-            commentEl.innerHTML = `<h4>${c.name}</h4><p>${c.message}</p>`;
-            commentsList.appendChild(commentEl);
         });
     }
 
